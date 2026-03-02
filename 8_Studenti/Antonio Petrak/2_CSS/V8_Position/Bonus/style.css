@@ -1,0 +1,26 @@
+.box1 {
+  width: 700px;
+  height: 300px;
+  border: 2px solid red;
+  background-color: lightblue;
+}
+
+img {
+  float: right;
+  margin-left: 10px;
+}
+
+p {
+  margin-top: 0px;
+  text-align: justify;
+}
+
+#div1 {
+  background-color: yellow;
+  float: left;
+}
+
+#div2 {
+  background-color: green;
+  clear: right;
+}
