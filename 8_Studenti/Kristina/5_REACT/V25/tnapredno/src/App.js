@@ -1,14 +1,108 @@
 import React from "react";
 import "./App.css";
 
+import { VisibilityToolbar, AddTodoForm, TodoList } from "./components";
+import { VISIBILITY_TYPES } from "./constants/const";
+import { REMOVE_ALL_COMLPETED } from "./store/redux-store";
+import { connect } from "react-redux";
 class App extends React.Component {
+  state = {
+    visibility: VISIBILITY_TYPES.ALL,
+  };
+  componentDidUpdate() {
+    const { todos } = this.state;
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
+
+  componentDidMount() {
+    const pathName = window.location.href;
+    if (pathName.includes(VISIBILITY_TYPES.ACTIVE)) {
+      this.setState({ visibility: VISIBILITY_TYPES.ACTIVE });
+    }
+    if (pathName.includes(VISIBILITY_TYPES.COMPLETED)) {
+      this.setState({ visibility: VISIBILITY_TYPES.COMPLETED });
+    }
+  }
+
+  /*handleAddTodo(value) {
+    const { todos } = this.state;
+
+    const newTodo = {
+      id: Math.random().toString(32).substring(2, 10),
+      text: value,
+      completed: false,
+    };
+
+    this.setState({ todos: [...todos, newTodo] });
+  }*/
+
+  handleRemoveCompleted() {
+    const { todos } = this.state;
+    const newTodos = todos.filter((todo) => !todo.completed);
+    this.setState({ todos: newTodos });
+  }
+
+  handleVisibilityChange(newVisibility) {
+    this.setState({ visibility: newVisibility });
+  }
+
+  getVisibleTodos() {
+    const { visibility } = this.state;
+    const { todos } = this.props;
+
+    if (visibility === VISIBILITY_TYPES.ALL) {
+      return todos;
+    }
+
+    if (visibility === VISIBILITY_TYPES.COMPLETED) {
+      return todos.filter((todo) => todo.completed);
+    }
+
+    return todos.filter((todo) => !todo.completed);
+  }
+
   render() {
+    const { todos, visibility } = this.state;
+
+    const visibleTodos = this.getVisibleTodos();
+
     return (
-      <div className="App">
-        <h1>My Tasks</h1>
+      <div className="app">
+        <h1 className="header">My tasks</h1>
+        <VisibilityToolbar
+          visibilityType={visibility}
+          onVisibilityChange={this.handleVisibilityChange.bind(this)}
+        />
+        <div className="todo-container">
+          <AddTodoForm />
+          <TodoList
+            todos={visibleTodos}
+            toggleTodo={this.handleToggleTodo.bind(this)}
+            removeTodo={this.handleRemoveTodo.bind(this)}
+          />
+        </div>
+        <div>
+          <span
+            onClick={this.handleRemoveCompleted.bind(this)}
+            className="btn-clear-completed"
+          >
+            Clear completed
+          </span>
+        </div>
       </div>
     );
   }
+}
+
+function mapStateToProps(state) {
+  return {
+    tods: state.todos,
+  };
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    removeTodo: () => dispatch({ type: REMOVE_ALL_COMLPETED }),
+  };
 }
 
 export default App;
