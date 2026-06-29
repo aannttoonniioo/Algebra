@@ -2,23 +2,54 @@ import { useState } from "react";
 import "./App.css";
 import { UserForm, GithubRepoos, GithubUser } from "./components";
 import Button from "react-bootstrap/Button";
+import { GithubApi } from "./services/inde";
+
 function App() {
-  const { user, setUser } = useState(null);
+  const [user, setUser] = useState(null);
+  const [repos, setRepos] = useState(null);
+
+  function getData(userName) {
+    Promise.all([
+      GithubApi.fetchUser(userName),
+      GithubApi.fetchUserRepos(userName),
+    ]).then(([userResult, reposResult]) => {
+      setUser(userResult);
+      setRepos(reposResult);
+      console.log(userResult);
+    });
+  }
+
+  function handleResetUser() {
+    setUser(null);
+  }
 
   if (!user) {
     return (
       <div className="App">
-        <UserForm />
+        <UserForm setUser={getData} />
       </div>
     );
   }
 
   return (
     <div className="App">
-      <GithubUser />
-      <GithubRepoos />
+      <GithubUser user={user} />
+      <GithubRepoos repos={repos} />
+      <button style={styles.button} onClick={handleResetUser}>
+        Reset
+      </button>
     </div>
   );
 }
 
 export default App;
+
+const styles = {
+  button: {
+    marginTop: 20,
+    width: "100%",
+  },
+  buttonContainer: {
+    textAlign: "center",
+  },
+};
