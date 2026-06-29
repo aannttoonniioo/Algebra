@@ -10,7 +10,7 @@ class App extends React.Component {
     visibility: VISIBILITY_TYPES.ALL,
   };
   componentDidUpdate() {
-    const { todos } = this.state;
+    const { todos } = this.props;
     localStorage.setItem("todos", JSON.stringify(todos));
   }
 
@@ -37,9 +37,8 @@ class App extends React.Component {
   }*/
 
   handleRemoveCompleted() {
-    const { todos } = this.state;
-    const newTodos = todos.filter((todo) => !todo.completed);
-    this.setState({ todos: newTodos });
+    const { removeTodo } = this.props;
+    removeTodo();
   }
 
   handleVisibilityChange(newVisibility) {
@@ -62,7 +61,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { todos, visibility } = this.state;
+    const { visibility } = this.state;
 
     const visibleTodos = this.getVisibleTodos();
 
@@ -75,11 +74,7 @@ class App extends React.Component {
         />
         <div className="todo-container">
           <AddTodoForm />
-          <TodoList
-            todos={visibleTodos}
-            toggleTodo={this.handleToggleTodo.bind(this)}
-            removeTodo={this.handleRemoveTodo.bind(this)}
-          />
+          <TodoList todos={visibleTodos} />
         </div>
         <div>
           <span
@@ -96,7 +91,7 @@ class App extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    tods: state.todos,
+    todos: state.todos,
   };
 }
 function mapDispatchToProps(dispatch) {
@@ -105,4 +100,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
