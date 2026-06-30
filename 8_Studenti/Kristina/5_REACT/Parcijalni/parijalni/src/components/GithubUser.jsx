@@ -6,7 +6,7 @@ export default function GithubUser({ user }) {
       <div style={styles.container}>
         <div style={styles.titleContainer}>
           <img src={avatar_url} style={styles.image} alt="No-logo" />
-          <span sstyle={styles.name}>{name}</span>
+          <span style={styles.name}>{name}</span>
         </div>
 
         <p>
@@ -32,5 +32,7 @@ const styles = {
     alignItems: "center",
     marginBotom: 24,
   },
-  container: {},
+  container: {
+    textAlign: "justify",
+  },
 };

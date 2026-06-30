@@ -1,8 +1,8 @@
 import { useState } from "react";
 import "./App.css";
 import { UserForm, GithubRepoos, GithubUser } from "./components";
-import Button from "react-bootstrap/Button";
-import { GithubApi } from "./services/inde";
+
+import { GithubApi } from "./services";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -35,9 +35,11 @@ function App() {
     <div className="App">
       <GithubUser user={user} />
       <GithubRepoos repos={repos} />
-      <button style={styles.button} onClick={handleResetUser}>
-        Reset
-      </button>
+      <div style={styles.buttonContainer}>
+        <button style={styles.button} onClick={handleResetUser}>
+          Reset
+        </button>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,53 @@
+import React from "react";
+import "./App.css";
+import { Message, Input } from "./components";
+import { memberGenerator } from "./services";
+import { Scaledrone } from "./services";
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      messages: [],
+      currentmemberId: null,
+    };
+  }
+
+  UNSAFE_componentWillMount() {
+    const config = {
+      member: memberGenerator.get(),
+      onInit: this.onInit,
+      onMessageRecived: this.onMessageRecived,
+    };
+
+    this.drone = new Scaledrone(config);
+  }
+
+  onInit = (currentMemberId) => this.setState({ currentMemberId });
+
+  onMessageRecived = (newMessage) => {
+    const { messages } = this.state;
+    this.setState({ messages: [...messages, newMessage] });
+  };
+
+  render() {
+    const { messages, currentMemberId } = this.state;
+
+    return (
+      <div className="app">
+        <div className="header">
+          <h1>My Chat App</h1>
+        </div>
+        <ul className="message-list">
+          {messages.map((message) => (
+            <Message message={message} currentMemberId={currentMemberId} />
+          ))}
+        </ul>
+        <Input onSendMessage={this.drone.sendMessage} />
+      </div>
+    );
+  }
+}
+
+export default App;

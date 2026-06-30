@@ -1,9 +1,5 @@
 import React from "react";
 
-import Form from "react-bootstrap/Form";
-import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
-
 class UserForm extends React.Component {
   state = {
     userName: "",
@@ -41,7 +37,9 @@ class UserForm extends React.Component {
               value={userName}
               onChange={this.handleuserChange}
             />
-            <button style={styles.button}>GO!</button>
+            <button style={styles.button} type="submit">
+              GO!
+            </button>
           </div>
         </form>
       </>
