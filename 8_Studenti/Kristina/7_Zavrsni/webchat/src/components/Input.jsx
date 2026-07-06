@@ -16,7 +16,6 @@ class Input extends React.Component {
     const { onSendMessage } = this.props;
     const { text } = this.state;
     onSendMessage(text);
-    //
 
     this.setState({ text: "" });
   };

@@ -10,7 +10,7 @@ class App extends React.Component {
 
     this.state = {
       messages: [],
-      currentmemberId: null,
+      currentMemberId: null,
     };
   }
 
@@ -39,9 +39,13 @@ class App extends React.Component {
         <div className="header">
           <h1>My Chat App</h1>
         </div>
-        <ul className="message-list">
-          {messages.map((message) => (
-            <Message message={message} currentMemberId={currentMemberId} />
+        <ul>
+          {messages.map((message, index) => (
+            <Message
+              key={index}
+              message={message}
+              currentMemberId={currentMemberId}
+            />
           ))}
         </ul>
         <Input onSendMessage={this.drone.sendMessage} />

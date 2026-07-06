@@ -1,11 +1,11 @@
-export default function Message({ message, currentmemberId }) {
+export default function Message({ message, currentMemberId }) {
   const { member, text, id } = message;
 
-   const isMyMessage = id === currentMemberId;
-     const className = isMyMessage ? 'message current' : 'message';
+  const isMyMessage = id === currentMemberId;
+  const className = isMyMessage ? "message current" : "message";
 
   return (
-    <li className="messages">
+    <li className={className}>
       <span className="avatar" style={{ backgroundColor: member.color }}></span>
 
       <div className="message-content">

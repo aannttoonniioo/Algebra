@@ -71,3 +71,11 @@ form {
   border-radius: 12px;
   display: inline-block;
 }
+.message.current {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.current > .message-content .text {
+  background-color: lightcoral;
+}
