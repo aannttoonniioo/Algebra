@@ -1,0 +1,10 @@
+.section {
+  margin: 10rem auto 1rem;
+  padding: 1rem;
+  width: 90%;
+  background-color: var(--surface-variant);
+  color: var(--on-surface);
+  border: 2px solid var(--primary);
+  border-radius: 4px;
+  text-align: center;
+}
