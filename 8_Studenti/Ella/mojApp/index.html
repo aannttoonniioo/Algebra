@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="hr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ocjenjivanje filmova</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Ocjenjivanje filmova</h1>
+
+    <form id="movieForm">
+      <input type="text" id="title" placeholder="Naziv filma" />
+
+      <input
+        type="number"
+        id="rating"
+        min="1"
+        max="10"
+        placeholder="Ocjena 1-10"
+      />
+
+      <button type="submit">Pohrani</button>
+
+      <div id="error"></div>
+    </form>
+
+    <div id="movieList"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

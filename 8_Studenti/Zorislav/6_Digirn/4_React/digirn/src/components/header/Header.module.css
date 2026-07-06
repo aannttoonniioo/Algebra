@@ -1,0 +1,43 @@
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background-color: var(--primary);
+  opacity: 0.8;
+  color: var(--on-primary);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+}
+
+.h2 {
+  color: var(--on-primary);
+}
+
+.nav {
+  margin-right: 1rem;
+}
+
+.ul {
+  display: flex;
+  padding: none;
+  list-style-type: none;
+}
+
+.li {
+  margin-left: 1rem;
+}
+
+.link {
+  color: var(--on-primary);
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--inverse-primary);
+}
